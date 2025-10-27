@@ -10,9 +10,7 @@
 	"keywords": ["text", "paragraph", "box"],
 	"example": {},
 	"supports": {
-		"html": false,
-		"source": "html",
-		"selector": "h4"
+		"html": false
 	},
 	"textdomain": "text-box",
 	"editorScript": "file:./index.js",
@@ -21,7 +19,13 @@
 	"viewScript": "file:./view.js",
 	"attributes": {
 		"text": {
-			"type": "string"
+			"type": "string",
+			"source": "html",
+			"selector": "h4"
+		},
+		"alignment": {
+			"type": "string",
+			"default": "left"
 		}
 	}
 }

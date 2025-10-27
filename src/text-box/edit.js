@@ -8,19 +8,28 @@ import {
 import './editor.scss'
 
 export default function Edit({ attributes, setAttributes }) {
-	const { text } = attributes
+	const { text, alignment } = attributes
+	const onChangeAlignment = (newAlignment) => {
+		setAttributes({ alignment: newAlignment })
+	}
+	const onChangeText = (newText) => {
+		setAttributes({ text: newText })
+	}
 	return (
 		<>
 			<BlockControls>
-				<AlignmentToolbar />
+				<AlignmentToolbar value={alignment} onChange={onChangeAlignment} />
 			</BlockControls>
 			<RichText
-				{...useBlockProps()}
-				onChange={(value) => setAttributes({ text: value })}
+				{...useBlockProps({
+					className: `text-box-align-${alignment}`,
+				})}
+				onChange={onChangeText}
 				value={text}
 				placeholder={__('Your text', 'text-box')}
 				tagName="h4"
 				allowedFormats={[]}
+				style={{ textAlign: alignment }}
 			/>
 		</>
 	)
