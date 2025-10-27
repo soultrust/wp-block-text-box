@@ -7,24 +7,29 @@ import {
 	InspectorControls,
 	PanelColorSettings,
 	ContrastChecker,
+	withColors,
 } from '@wordpress/block-editor'
 
 import './editor.scss'
 
-export default function Edit({ attributes, setAttributes }) {
-	const { text, alignment, backgroundColor, textColor } = attributes
+function Edit(props) {
+	const {
+		attributes,
+		setAttributes,
+		backgroundColor,
+		textColor,
+		setBackgroundColor,
+		setTextColor,
+	} = props
+	const { text, alignment } = attributes
+
 	const onChangeAlignment = (newAlignment) => {
 		setAttributes({ alignment: newAlignment })
 	}
 	const onChangeText = (newText) => {
 		setAttributes({ text: newText })
 	}
-	const onBackgroundColorChange = (newBgColor) => {
-		setAttributes({ backgroundColor: newBgColor })
-	}
-	const onTextColorChange = (newTextColor) => {
-		setAttributes({ textColor: newTextColor })
-	}
+
 	return (
 		<>
 			<InspectorControls>
@@ -35,20 +40,20 @@ export default function Edit({ attributes, setAttributes }) {
 					disableCustomColors={false}
 					colorSettings={[
 						{
-							value: backgroundColor,
-							onChange: onBackgroundColorChange,
+							value: backgroundColor.color,
+							onChange: setBackgroundColor,
 							label: __('Background Color', 'text-box'),
 						},
 						{
-							value: textColor,
-							onChange: onTextColorChange,
+							value: textColor.color,
+							onChange: setTextColor,
 							label: __('Text Color', 'text-box'),
 						},
 					]}
 				>
 					<ContrastChecker
-						textColor={textColor}
-						backgroundColor={backgroundColor}
+						textColor={textColor.color}
+						backgroundColor={backgroundColor.color}
 					/>
 				</PanelColorSettings>
 			</InspectorControls>
@@ -58,14 +63,22 @@ export default function Edit({ attributes, setAttributes }) {
 			<RichText
 				{...useBlockProps({
 					className: `text-box-align-${alignment}`,
+					style: {
+						backgroundColor: backgroundColor.color,
+						color: textColor.color,
+					},
 				})}
 				onChange={onChangeText}
 				value={text}
 				placeholder={__('Your text', 'text-box')}
 				tagName="h4"
 				allowedFormats={[]}
-				style={{ textAlign: alignment, backgroundColor, color: textColor }}
 			/>
 		</>
 	)
 }
+
+export default withColors({
+	backgroundColor: 'backgroundColor',
+	textColor: 'color',
+})(Edit)

@@ -47,6 +47,7 @@
 		"stylelint-config-standard-scss": "^16.0.0"
 	},
 	"dependencies": {
-		"@wordpress/components": "^30.6.0"
+		"@wordpress/components": "^30.6.0",
+		"classnames": "^2.5.1"
 	}
 }
