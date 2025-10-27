@@ -1,0 +1,9 @@
+{
+	"extends": ["stylelint-config-standard", "@wordpress/stylelint-config"],
+	"rules": {
+		"color-named": "never",
+		"color-function-notation": "modern",
+		"no-irregular-whitespace": true,
+		"function-calc-no-unspaced-operator": true
+	}
+}

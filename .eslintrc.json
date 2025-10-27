@@ -1,0 +1,15 @@
+{
+	"extends": ["plugin:@wordpress/eslint-plugin/recommended", "prettier"],
+	"parser": "@babel/eslint-parser",
+	"parserOptions": {
+		"sourceType": "module",
+		"requireConfigFile": false,
+		"ecmaVersion": "latest",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"rules": {
+		"prettier/prettier": "off"
+	}
+}

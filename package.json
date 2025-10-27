@@ -1,0 +1,49 @@
+{
+	"name": "boilerplate",
+	"version": "0.1.0",
+	"description": "Example block scaffolded with Create Block tool.",
+	"author": "The WordPress Contributors",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build --blocks-manifest",
+		"format": "wp-scripts format && npx stylelint \"**/*.scss\" --fix",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start --blocks-manifest",
+		"prepare": "husky"
+	},
+	"stylelint": {
+		"extends": [
+			"@wordpress/stylelint-config",
+			"stylelint-config-standard"
+		],
+		"rules": {
+			"color-named": "never",
+			"color-function-notation": "modern",
+			"no-irregular-whitespace": true,
+			"function-calc-no-unspaced-operator": true
+		}
+	},
+	"lint-staged": {
+		"*.js": [
+			"wp-scripts lint-js",
+			"wp-scripts format"
+		],
+		"*.scss": "npx stylelint --fix"
+	},
+	"devDependencies": {
+		"@babel/eslint-parser": "^7.28.4",
+		"@wordpress/eslint-plugin": "^22.19.0",
+		"@wordpress/prettier-config": "^4.33.0",
+		"@wordpress/scripts": "^30.26.0",
+		"@wordpress/stylelint-config": "^23.25.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^15.5.2",
+		"stylelint": "^16.25.0",
+		"stylelint-config-standard": "^39.0.1",
+		"stylelint-config-standard-scss": "^16.0.0"
+	}
+}
