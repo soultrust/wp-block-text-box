@@ -10,7 +10,20 @@
 	"keywords": ["text", "paragraph", "box"],
 	"example": {},
 	"supports": {
-		"html": false
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true,
+			"gradients": true
+		},
+		"spacing": {
+			"padding": {
+				"top": "50px",
+				"right": "50px",
+				"bottom": "50px",
+				"left": "50px"
+			}
+		}
 	},
 	"textdomain": "text-box",
 	"editorScript": "file:./index.js",
@@ -31,13 +44,27 @@
 			"type": "string"
 		},
 		"textColor": {
+			"type": "string",
+			"default": "very-light-gray"
+		},
+		"gradient": {
 			"type": "string"
 		},
-		"customBackgroundColor": {
-			"type": "string"
-		},
-		"customTextColor": {
-			"type": "string"
+		"style": {
+			"type": "object",
+			"default": {
+				"color": {
+					"background": "#f03"
+				},
+				"spacing": {
+					"padding": {
+						"top": "50px",
+						"right": "50px",
+						"bottom": "50px",
+						"left": "500px"
+					}
+				}
+			}
 		}
 	}
 }

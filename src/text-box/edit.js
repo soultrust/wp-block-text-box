@@ -4,23 +4,11 @@ import {
 	RichText,
 	BlockControls,
 	AlignmentToolbar,
-	InspectorControls,
-	PanelColorSettings,
-	ContrastChecker,
-	withColors,
 } from '@wordpress/block-editor'
-
 import './editor.scss'
 
-function Edit(props) {
-	const {
-		attributes,
-		setAttributes,
-		backgroundColor,
-		textColor,
-		setBackgroundColor,
-		setTextColor,
-	} = props
+export default function Edit(props) {
+	const { attributes, setAttributes, style } = props
 	const { text, alignment } = attributes
 
 	const onChangeAlignment = (newAlignment) => {
@@ -30,55 +18,43 @@ function Edit(props) {
 		setAttributes({ text: newText })
 	}
 
+	const padding = style?.spacing?.padding || {}
+
 	return (
 		<>
-			<InspectorControls>
-				<PanelColorSettings
-					title={__('Color Settings', 'text-box')}
-					icon="admin-appearance"
-					initialOpen
-					disableCustomColors={false}
-					colorSettings={[
-						{
-							value: backgroundColor.color,
-							onChange: setBackgroundColor,
-							label: __('Background Color', 'text-box'),
-						},
-						{
-							value: textColor.color,
-							onChange: setTextColor,
-							label: __('Text Color', 'text-box'),
-						},
-					]}
-				>
-					<ContrastChecker
-						textColor={textColor.color}
-						backgroundColor={backgroundColor.color}
-					/>
-				</PanelColorSettings>
-			</InspectorControls>
 			<BlockControls>
 				<AlignmentToolbar value={alignment} onChange={onChangeAlignment} />
 			</BlockControls>
-			<RichText
+			<div
 				{...useBlockProps({
 					className: `text-box-align-${alignment}`,
-					style: {
-						backgroundColor: backgroundColor.color,
-						color: textColor.color,
-					},
 				})}
-				onChange={onChangeText}
-				value={text}
-				placeholder={__('Your text', 'text-box')}
-				tagName="h4"
-				allowedFormats={[]}
-			/>
+			>
+				<RichText
+					onChange={onChangeText}
+					value={text}
+					placeholder={__('Your text', 'text-box')}
+					tagName="h4"
+					allowedFormats={[]}
+				/>
+				{padding && Object.keys(padding).length > 0 && (
+					<div
+						style={{
+							position: 'absolute',
+							top: 0,
+							left: 0,
+							right: 0,
+							bottom: 0,
+							border: '2px dashed rgba(0, 0, 0, 0.3)',
+							pointerEvents: 'none',
+							paddingTop: padding.top,
+							paddingRight: padding.right,
+							paddingBottom: padding.bottom,
+							paddingLeft: padding.left,
+						}}
+					/>
+				)}
+			</div>
 		</>
 	)
 }
-
-export default withColors({
-	backgroundColor: 'backgroundColor',
-	textColor: 'color',
-})(Edit)
